@@ -24,14 +24,14 @@ jobs:
    runs-on: windows-latest
    needs: Build
    steps:
-     - name: download as artifact
-       uses: actions/download-artifact@v2
-       with:
-         name: sum-binary
-         path: ./sum
-    
-     - name: builds the program
-       run: ./sum
+    - name: Download my artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: sum-binary
+        path: ./sum
+
+    - name: Run my sum
+      run: ./sum 
          
        
      
