@@ -1,0 +1,41 @@
+name: my workflow
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Build:
+   runs-on: windows-latest
+   steps:
+     - name: checkout
+       uses: actions/checkout@v2
+       
+     - name: builds the program
+       run: g++ -o sum sum.cpp
+       shell: bash
+       
+     - name: upload as artifact
+       uses: actions/upload-artifact@v2
+       with:
+         name: sum-binary
+         path: ./sum
+ 
+  Run:
+   runs-on: windows-latest
+   needs: Build
+   steps:
+     - name: checkout
+       uses: actions/checkout@v2
+       
+     - name: download as artifact
+       uses: actions/download-artifact@v2
+       with:
+         name: sum-binary
+         path: ./sum
+    
+     - name: builds the program
+       run: ./sum
+         
+       
+     
+  
